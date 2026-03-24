@@ -313,6 +313,7 @@ function _openLightbox(p) {
 
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
+  setTimeout(positionLightboxArrows, 50);
 }
 
 function lbSetPhoto(idx, photos) {
@@ -345,6 +346,25 @@ function buildLbThumbs(photos) {
 function lbNav(dir) {
   lbSetPhoto(_lbPhotoIdx + dir);
 }
+
+function positionLightboxArrows() {
+  const imgSide = document.querySelector('.lightbox-img-side');
+  const prev    = document.getElementById('lb-prev');
+  const next    = document.getElementById('lb-next');
+  if (!imgSide || !prev || !next) return;
+
+  const rect = imgSide.getBoundingClientRect();
+  prev.style.left  = (rect.left  + 16) + 'px';
+  next.style.left  = (rect.right - 52) + 'px';
+  prev.style.right = 'auto';
+  next.style.right = 'auto';
+}
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    positionLightboxArrows();
+  }
+});
 
 window.closeLightbox = function(e) {
   if (e && e.target && e.target !== document.getElementById('lightbox')) return;
