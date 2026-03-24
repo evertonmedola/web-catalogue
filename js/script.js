@@ -158,7 +158,7 @@ function buildFeatured(products) {
         <span class="feature-num">0${idx}</span>
         <p class="feature-eyebrow">Destaque ${idx}</p>
         <h2 class="feature-title">${p.nome}<br><em>${p.subtitulo}</em></h2>
-        ${p.citacao ? `<blockquote class="feature-verse">"${p.citacao}" <cite>— ${p.versiculo}</cite></blockquote>` : ''}
+        ${p.citacao ? `<blockquote class="feature-verse">"${p.citacao}" ${p.versiculo ? `<cite>— ${p.versiculo}</cite>` : ''} </blockquote>` : ''}
         <p class="feature-desc">${p.descricao}</p>
         <p class="feature-price">
           <span class="price-current">${p.preco}</span>
