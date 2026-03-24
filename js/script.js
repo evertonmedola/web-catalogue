@@ -14,7 +14,7 @@ const CONFIG = {
   WHATSAPP_NUMBER: import.meta.env.VITE_WHATSAPP_NUMBER,
   SHEET_ID:        import.meta.env.VITE_SHEET_ID,
   SHEET_TAB:       import.meta.env.VITE_SHEET_TAB,
-  USE_DEMO_DATA:   import.meta.env.VITE_USE_DEMO_DATA,
+  USE_DEMO_DATA:   import.meta.env.VITE_USE_DEMO_DATA === true,
 };
 
 /* ── DEMO DATA ───────────────────────────────── */
