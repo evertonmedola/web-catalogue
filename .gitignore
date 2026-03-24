@@ -1,0 +1,21 @@
+# Configurações de Ambiente (Dados Sensíveis)
+js/config.js
+env.js
+.env
+.env.local
+
+# Dependências
+node_modules/
+dist/
+build/
+
+# Logs e Cache
+npm-debug.log*
+.eslintcache
+.DS_Store
+
+# Pastas de IDE e Editores
+.vscode/
+.idea/
+
+notes.md

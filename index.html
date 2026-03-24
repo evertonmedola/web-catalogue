@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Trin — Camisetas religiosas com arte sacra contemporânea. Catálogo oficial."
+    />
+    <title>Trin — Camisetas Religiosas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+      defer
+    ></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ══ NAV ══════════════════════════════════════ -->
+    <nav id="navbar">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <span class="logo-mark">✝</span>
+          <span class="logo-text">Trin</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#destaques">Destaques</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+        <button
+          class="nav-wpp"
+          onclick="
+            openWhatsApp(
+              'Olá! Vim pelo catálogo Trin e gostaria de mais informações.',
+            )
+          "
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+            />
+          </svg>
+          Falar com Vendedor
+        </button>
+        <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="nav-mobile">
+        <ul>
+          <li><a href="#destaques" onclick="closeMobile()">Destaques</a></li>
+          <li><a href="#catalogo" onclick="closeMobile()">Catálogo</a></li>
+          <li><a href="#contato" onclick="closeMobile()">Contato</a></li>
+          <li>
+            <a
+              href="#"
+              onclick="
+                closeMobile();
+                openWhatsApp('Olá! Vim pelo catálogo Trin.');
+              "
+              >WhatsApp</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- ══ HERO ═════════════════════════════════════ -->
+    <section id="hero">
+      <div class="hero-bg-word">FÉ</div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">
+          <span class="eyebrow-line"></span>
+          Coleção 2026
+          <span class="eyebrow-line"></span>
+        </p>
+        <h1 class="hero-title">Veste a <em>Fé</em><br />com Propósito</h1>
+        <p class="hero-sub">
+          Arte sacra contemporânea em cada detalhe.<br />Camisetas que expressam
+          sua fé no dia a dia.
+        </p>
+        <div class="hero-actions">
+          <a href="#destaques" class="btn-primary">Ver Destaques</a>
+          <a href="#catalogo" class="btn-ghost">Catálogo Completo</a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Role para ver</span>
+      </div>
+    </section>
+
+    <!-- ══ TICKER ════════════════════════════════════ -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <!-- ══ FEATURED — gerado via JS ═════════════════ -->
+    <section id="destaques">
+      <div id="featured-container">
+        <div class="featured-loading"><div class="spinner"></div></div>
+      </div>
+    </section>
+
+    <!-- ══ CATALOGUE ════════════════════════════════ -->
+    <section id="catalogo">
+      <div class="cat-header reveal">
+        <p class="section-eyebrow">Catálogo Completo</p>
+        <h2 class="section-title">Toda a Coleção</h2>
+        <p class="section-sub">
+          Clique em qualquer peça para ver mais fotos e detalhes.
+        </p>
+      </div>
+      <div
+        class="cat-filters"
+        id="cat-filters"
+        role="group"
+        aria-label="Filtrar por categoria"
+      ></div>
+      <div id="product-grid" class="product-grid" role="list">
+        <div class="grid-loading" id="grid-loading">
+          <div class="spinner"></div>
+          <span>Carregando produtos...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CONTATO ═══════════════════════════════════ -->
+    <section id="contato" class="contact-section">
+      <div class="contact-inner">
+        <p class="section-eyebrow light">Fale Conosco</p>
+        <h2 class="section-title light">Interesse em<br />alguma peça?</h2>
+        <p class="contact-desc">
+          Não realizamos vendas online. Entre em contato com um de nossos
+          vendedores pelo WhatsApp ou visite nossa loja pessoalmente.
+        </p>
+        <div class="contact-actions">
+          <button
+            class="btn-wpp-large"
+            onclick="
+              openWhatsApp(
+                'Olá! Vim pelo catálogo Trin e gostaria de mais informações sobre as camisetas.',
+              )
+            "
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+            Falar pelo WhatsApp
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FOOTER ════════════════════════════════════ -->
+    <footer id="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo-mark">✝</span>
+          <span class="logo-text">Trin</span>
+        </div>
+        <p class="footer-tagline">Arte sacra contemporânea em cada detalhe.</p>
+        <nav class="footer-nav" aria-label="Rodapé">
+          <a href="#destaques">Destaques</a>
+          <a href="#catalogo">Catálogo</a>
+          <a href="#contato">Contato</a>
+        </nav>
+        <p class="footer-copy">© 2026 Trin · Todos os direitos reservados</p>
+      </div>
+    </footer>
+
+    <!-- ══ LIGHTBOX ═══════════════════════════════════ -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <button class="lightbox-prev" id="lb-prev" onclick="lbNav(-1)">
+        &#8592;
+      </button>
+      <button class="lightbox-next" id="lb-next" onclick="lbNav(1)">
+        &#8594;
+      </button>
+      <div class="lightbox-inner" onclick="event.stopPropagation()">
+        <div class="lightbox-img-side">
+          <div class="lightbox-img-wrap">
+            <img id="lb-img" src="" alt="" />
+          </div>
+          <div class="lightbox-thumbs" id="lb-thumbs"></div>
+        </div>
+        <div class="lightbox-info">
+          <p class="lightbox-cat" id="lb-cat"></p>
+          <h3 class="lightbox-title" id="lb-title"></h3>
+          <p class="lightbox-verse" id="lb-verse"></p>
+          <p class="lightbox-desc" id="lb-desc"></p>
+          <p class="lightbox-price" id="lb-price"></p>
+          <p class="lightbox-sizes" id="lb-sizes"></p>
+          <button
+            class="btn-wpp-large"
+            id="lb-wpp"
+            style="
+              width: 100%;
+              justify-content: center;
+              margin-top: auto;
+              padding: 14px 24px;
+              font-size: 12px;
+            "
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+            Tenho Interesse
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ WhatsApp FLOAT ════════════════════════════ -->
+    <button
+      class="wpp-float"
+      aria-label="WhatsApp"
+      onclick="openWhatsApp('Olá! Vim pelo catálogo Trin.')"
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
+      <span class="wpp-tooltip">Falar com vendedor</span>
+    </button>
+
+    <script type="module" src="js/script.js"></script>
+  </body>
+</html>
