@@ -475,10 +475,11 @@ ul { list-style:none; }
   .wpp-float { bottom:18px; right:18px; }
   .wpp-tooltip { display:none; }
   .lightbox-inner { grid-template-columns:1fr; max-height:95vh; overflow-y:auto; }
-  .lightbox-img-wrap { min-height:240px; max-height:50vw; }
-  .lightbox-info { padding:20px; }
-  .lightbox-prev { left:4px; }
-  .lightbox-next { right:4px; }
+  .lightbox-img-side {position: sticky; top: 0; z-index: 2;}
+  .lightbox-img-wrap { min-height:55vw; max-height:65vw; }
+  .lightbox-info { padding:20px; height: auto; overflow-y: visible;}
+  .lightbox-prev { left:12px; top: 30vw;}
+  .lightbox-next { right:12px; top: 30vw;}
 }
 @media(max-width:480px) {
   .hero-title { font-size:48px; }
