@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════
-   TRINUM — script.js
+   Trin — script.js
    ═══════════════════════════════════════════════
 
    COLUNAS DA PLANILHA (ordem):
@@ -10,13 +10,11 @@
 
    ═══════════════════════════════════════════════ */
 
-import {ENV} from './config.js'
-
 const CONFIG = {
-  WHATSAPP_NUMBER: ENV.WHATSAPP_NUMBER,
-  SHEET_ID:        ENV.SHEET_ID,
-  SHEET_TAB:       ENV.SHEET_TAB,
-  USE_DEMO_DATA:   ENV.USE_DEMO_DATA,
+  WHATSAPP_NUMBER: import.meta.env.VITE_WHATSAPP_NUMBER,
+  SHEET_ID:        import.meta.env.VITE_SHEET_ID,
+  SHEET_TAB:       import.meta.env.VITE_SHEET_TAB,
+  USE_DEMO_DATA:   import.meta.env.VITE_USE_DEMO_DATA,
 };
 
 /* ── DEMO DATA ───────────────────────────────── */
@@ -47,7 +45,7 @@ function whatsappProduct(p) {
    ══════════════════════════════════════════════ */
 async function fetchProducts() {
   if (CONFIG.USE_DEMO_DATA || CONFIG.SHEET_ID === 'SEU_SHEET_ID_AQUI') {
-    console.info('[Trinum] Modo demo ativo.');
+    console.info('[Trin] Modo demo ativo.');
     return DEMO_PRODUCTS;
   }
 
@@ -59,20 +57,20 @@ async function fetchProducts() {
 
   for (const url of urls) {
     try {
-      console.info('[Trinum] Buscando:', url);
+      console.info('[Trin] Buscando:', url);
       const res = await fetch(url);
-      if (!res.ok) { console.warn(`[Trinum] HTTP ${res.status}`); continue; }
+      if (!res.ok) { console.warn(`[Trin] HTTP ${res.status}`); continue; }
       const csv = await res.text();
-      if (csv.trim().startsWith('<')) { console.warn('[Trinum] Resposta HTML — planilha não pública?'); continue; }
+      if (csv.trim().startsWith('<')) { console.warn('[Trin] Resposta HTML — planilha não pública?'); continue; }
       const products = parseCSV(csv);
-      if (!products.length) { console.warn('[Trinum] CSV vazio.'); continue; }
-      console.info(`[Trinum] ${products.length} produtos carregados.`);
+      if (!products.length) { console.warn('[Trin] CSV vazio.'); continue; }
+      console.info(`[Trin] ${products.length} produtos carregados.`);
       return products;
     } catch (e) {
-      console.warn('[Trinum] Erro:', e.message);
+      console.warn('[Trin] Erro:', e.message);
     }
   }
-  console.error('[Trinum] Falha ao carregar planilha. Usando demo.');
+  console.error('[Trin] Falha ao carregar planilha. Usando demo.');
   return DEMO_PRODUCTS;
 }
 
@@ -414,7 +412,7 @@ function registerProduct(obj) {
 window.openWhatsApp  = openWhatsApp;
 window.openLightbox  = function(idx) {
   const p = _productRegistry[idx];
-  if (!p) { console.warn('[Trinum] Produto não encontrado no registry:', idx); return; }
+  if (!p) { console.warn('[Trin] Produto não encontrado no registry:', idx); return; }
   _openLightbox(p);
 };
 window.lbNav        = lbNav;
@@ -440,7 +438,7 @@ async function init() {
     buildFilters(allProducts);
     renderGrid(allProducts);
   } catch (err) {
-    console.error('[Trinum] Erro fatal:', err);
+    console.error('[Trin] Erro fatal:', err);
     if (loading) loading.innerHTML = '<p style="color:var(--gray);padding:40px;text-align:center">Erro ao carregar produtos.</p>';
   }
 }
