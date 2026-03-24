@@ -369,8 +369,8 @@ ul { list-style:none; }
   display:flex; align-items:center; justify-content:center;
   cursor:pointer; transition:background .2s; z-index:10;
 }
-.lightbox-prev { left:16px; }
-.lightbox-next { left:calc(100% - 760px); }
+.lightbox-prev { left:calc(50% - 570px); }
+.lightbox-next { left:calc(50% - 160px); }
 .lightbox-prev:hover, .lightbox-next:hover { background:rgba(20,18,16,.8); }
 
 .lightbox-inner {
