@@ -404,7 +404,7 @@ ul { list-style:none; }
 .lightbox-title { font-family:var(--font-display); font-size:22px; font-weight:600; line-height:1.2; color:var(--dark); }
 .lightbox-verse { font-family:var(--font-display); font-style:italic; font-size:13px; color:var(--gray); padding-left:12px; border-left:2px solid var(--gold); line-height:1.6; }
 .lightbox-desc { font-size:13px; color:var(--gray); line-height:1.75; }
-.lightbox-price { font-size:22px; font-weight:500; color:var(--dark); }
+.lightbox-price { font-size:22px; font-weight:500; color:var(--dark); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;}
 .lightbox-sizes { font-size:12px; color:var(--gray); }
 
 /* ── CONTACT ─────────────────────────────────── */
@@ -458,9 +458,9 @@ ul { list-style:none; }
   .nav-links, .nav-wpp { display:none; }
   .nav-hamburger { display:flex; }
   .nav-inner { padding:0 20px; }
-  .feature-section { grid-template-columns:1fr; min-height:auto; }
-  .feature-section.reversed .feature-visual { order:0; }
-  .feature-section.reversed .feature-info   { order:0; }
+  .feature-section { grid-template-columns:1fr !important;}
+  .feature-section.reversed .feature-visual { order:1; }
+  .feature-section.reversed .feature-info   { order:2; }
   .feature-visual { min-height:60vw; }
   .feature-info { padding:36px 24px 52px; }
   .feature-num { font-size:64px; }
