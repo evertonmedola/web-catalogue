@@ -14,7 +14,7 @@ const CONFIG = {
   WHATSAPP_NUMBER: import.meta.env.VITE_WHATSAPP_NUMBER,
   SHEET_ID:        import.meta.env.VITE_SHEET_ID,
   SHEET_TAB:       import.meta.env.VITE_SHEET_TAB,
-  USE_DEMO_DATA:   import.meta.env.VITE_USE_DEMO_DATA === true,
+  USE_DEMO_DATA:   import.meta.env.VITE_USE_DEMO_DATA === 'true' || import.meta.env.VITE_USE_DEMO_DATA === true,
 };
 
 /* ── DEMO DATA ───────────────────────────────── */
@@ -88,9 +88,9 @@ function parseCSV(csv) {
       versiculo:   clean(c[5]  ?? ''),
       tamanhos:    clean(c[6]  ?? ''),
       badge:       clean(c[7]  ?? '').toLowerCase(),
-      foto_url:    clean(c[8]  ?? ''),
-      foto_url_2:  clean(c[9]  ?? ''),
-      foto_url_3:  clean(c[10] ?? ''),
+      foto_url:    optimizeImageUrl(clean(c[8]  ?? '')),
+      foto_url_2:  optimizeImageUrl(clean(c[9]  ?? '')),
+      foto_url_3:  optimizeImageUrl(clean(c[10] ?? '')),
       estoque:     clean(c[11] ?? 'disponivel').toLowerCase(),
       descricao:   clean(c[12] ?? ''),
       destaque:    clean(c[13] ?? ''),
@@ -136,9 +136,10 @@ function buildFeatured(products) {
   container.innerHTML = slots.map((p, i) => {
     const idx      = i + 1;
     const reversed = i % 2 === 1 ? 'reversed' : '';
-    const photos   = getPhotos(p);
-    const imgHTML  = photos[0]
-      ? `<img src="${photos[0]}" alt="${p.nome}" class="feature-img" loading="lazy" />`
+    const photos = getPhotos(p);
+    const optimizedFeatured = photos[0] ? optimizeImageUrl(photos[0], 1000) : null;
+    const imgHTML = optimizedFeatured
+      ? `<img src="${optimizedFeatured}" alt="${p.nome}" class="feature-img" loading="eager" decoding="sync" />`
       : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(201,168,76,.3);font-size:40px;">✝</div>`;
     const badgeHTML = p.badge === 'sale' ? `<div class="feature-img-badge">Promoção</div>`
                     : p.badge === 'new'  ? `<div class="feature-img-badge new">Novo</div>`
@@ -243,8 +244,8 @@ function renderGrid(products) {
 function buildCard(p, i) {
   const isEsgotado = p.estoque === 'esgotado';
   const photos     = getPhotos(p);
-  const mainImg    = photos[0] || '';
-  const hoverImg   = photos[1] || '';
+  const mainImg    = photos[0] ? optimizeImageUrl(photos[0], 400) : '';
+  const hoverImg   = photos[1] ? optimizeImageUrl(photos[1], 400) : '';
   const pIdx       = registerProduct(p);
 
   const badgeHTML = isEsgotado
@@ -253,8 +254,8 @@ function buildCard(p, i) {
     : p.badge === 'new'  ? `<div class="prod-badge new">Novo</div>`
     : '';
 
-  const mainImgHTML  = mainImg  ? `<img class="prod-img-main"  src="${mainImg}"  alt="${p.nome}" loading="lazy" />` : '';
-  const hoverImgHTML = hoverImg ? `<img class="prod-img-hover" src="${hoverImg}" alt="${p.nome} — costas" loading="lazy" />` : '';
+  const mainImgHTML  = mainImg  ? `<img class="prod-img-main" src="${mainImg}" alt="${p.nome}" loading="lazy" decoding="async" />` : '';
+  const hoverImgHTML = hoverImg ? `<img class="prod-img-hover" src="${hoverImg}" alt="${p.nome} — costas" loading="lazy" decoding="async" />` : '';
   const countHTML    = photos.length > 1 ? `<span class="prod-photo-count">${photos.length} fotos</span>` : '';
 
   const ctaBtn = isEsgotado
@@ -317,23 +318,28 @@ function _openLightbox(p) {
 function lbSetPhoto(idx, photos) {
   const list = photos || getPhotos(_lbProduct);
   _lbPhotoIdx = (idx + list.length) % list.length;
+  
   const img = document.getElementById('lb-img');
   img.style.opacity = '0';
+  
   setTimeout(() => {
-    img.src = list[_lbPhotoIdx];
+    img.src = optimizeImageUrl(list[_lbPhotoIdx], 1200); 
     img.style.opacity = '1';
   }, 150);
+  
   document.querySelectorAll('.lb-thumb').forEach((t, i) => t.classList.toggle('active', i === _lbPhotoIdx));
 }
 
 function buildLbThumbs(photos) {
   const wrap = document.getElementById('lb-thumbs');
   if (photos.length <= 1) { wrap.innerHTML = ''; return; }
-  wrap.innerHTML = photos.map((url, i) =>
-    `<div class="lb-thumb ${i === 0 ? 'active' : ''}" onclick="lbSetPhoto(${i})">
-      <img src="${url}" alt="Foto ${i+1}" loading="lazy"/>
-    </div>`
-  ).join('');
+  
+  wrap.innerHTML = photos.map((url, i) => {
+    const thumbUrl = optimizeImageUrl(url, 150);
+    return `<div class="lb-thumb ${i === 0 ? 'active' : ''}" onclick="lbSetPhoto(${i})">
+      <img src="${thumbUrl}" alt="Foto ${i+1}" loading="lazy"/>
+    </div>`;
+  }).join('');
 }
 
 function lbNav(dir) {
@@ -406,6 +412,20 @@ function registerProduct(obj) {
   const idx = _productRegistry.length;
   _productRegistry.push(obj);
   return idx;
+}
+
+/**
+ * Otimiza URLs.
+ * Redimensiona imagens (bom para lightbox) e converte para WebP.
+ */
+function optimizeImageUrl(url, width = 800) {
+  if (!url) return '';
+  if (url.includes('placehold.co')) return url;
+  if (url.includes('cloudinary.com')) {
+    return url.replace('/f_auto,q_auto/', `/f_auto,q_auto,w_${width},c_scale/`);
+  }
+
+  return url;
 }
 
 /* Exposição global — chama _openLightbox (interna) sem risco de recursão */
